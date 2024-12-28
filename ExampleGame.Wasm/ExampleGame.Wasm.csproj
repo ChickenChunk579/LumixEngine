@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WebAssembly">
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\ExampleGame\ExampleGame.csproj" />
+		<NativeFileReference Include="./natives/SDL2.a">
+			<Visible>true</Visible>
+		</NativeFileReference>
+
+		<EmccExportedRuntimeMethod Include="setMainLoop">
+			<Visible>false</Visible>
+		</EmccExportedRuntimeMethod>
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="js\" />
+	</ItemGroup>
+
+	<PropertyGroup>
+		<WasmBuildNative>true</WasmBuildNative>
+		<EmccLinkOptimizationFlag>-O1</EmccLinkOptimizationFlag>
+		<EmccExtraLDFlags>--js-library $(MSBuildProjectDirectory.Replace('\', '/'))/js/library-fixemscripten.js -sFULL_ES3</EmccExtraLDFlags>
+		<WasmEmitSymbolMap>true</WasmEmitSymbolMap>
+		<WasmAllowUndefinedSymbols>true</WasmAllowUndefinedSymbols>
+	</PropertyGroup>
+</Project>
